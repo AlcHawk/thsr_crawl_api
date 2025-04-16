@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: hsr-crawler
+    env: python
+    buildCommand: pip install -r requirements.txt
+    schedule: "0 5 1 * *"  # 每月 5 號凌晨 1 點執行
+    startCommand: python -m app.main
+    envVars:
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true
+
+  - type: postgres
+    name: hsr-database
+    plan: free
+    databaseName: hsr_data
+    user: hsr_user
+    password: ${DB_PASSWORD}
+    initScript: |
+      CREATE TABLE IF NOT EXISTS station_data (
+          id SERIAL PRIMARY KEY,
+          year_month VARCHAR(7) NOT NULL,
+          station VARCHAR(50) NOT NULL,
+          visitor_number INTEGER NOT NULL,
+          entry_exit VARCHAR(10) NOT NULL,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+      
+      CREATE INDEX IF NOT EXISTS idx_station_data_year_month 
+      ON station_data(year_month);
+      
+      CREATE INDEX IF NOT EXISTS idx_station_data_station 
+      ON station_data(station);
+      
+      CREATE INDEX IF NOT EXISTS idx_station_data_entry_exit 
+      ON station_data(entry_exit);
+
+      -- 授予權限
+      GRANT ALL PRIVILEGES ON DATABASE hsr_data TO hsr_user;
+
+      -- 設置序列權限
+      GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO hsr_user; 
