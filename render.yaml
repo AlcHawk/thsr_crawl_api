@@ -22,11 +22,11 @@ services:
   - type: postgres
     name: hsr-database
     plan: free
-    databaseName: hsr_data
-    user: hsr_user
+    databaseName: ${DB_NAME}
+    user: ${DB_USER}
     password: ${DB_PASSWORD}
     initScript: |
-      CREATE TABLE IF NOT EXISTS station_data (
+      CREATE TABLE IF NOT EXISTS hsr_vis_data (
           id SERIAL PRIMARY KEY,
           year_month VARCHAR(7) NOT NULL,
           station VARCHAR(50) NOT NULL,
@@ -35,17 +35,17 @@ services:
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
       
-      CREATE INDEX IF NOT EXISTS idx_station_data_year_month 
-      ON station_data(year_month);
+      CREATE INDEX IF NOT EXISTS idx_hsr_vis_data_year_month 
+      ON hsr_vis_data(year_month);
       
-      CREATE INDEX IF NOT EXISTS idx_station_data_station 
-      ON station_data(station);
+      CREATE INDEX IF NOT EXISTS idx_hsr_vis_data_station 
+      ON hsr_vis_data(station);
       
-      CREATE INDEX IF NOT EXISTS idx_station_data_entry_exit 
-      ON station_data(entry_exit);
+      CREATE INDEX IF NOT EXISTS idx_hsr_vis_data_entry_exit 
+      ON hsr_vis_data(entry_exit);
 
       -- 授予權限
-      GRANT ALL PRIVILEGES ON DATABASE hsr_data TO hsr_user;
+      GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO ${DB_USER};
 
       -- 設置序列權限
-      GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO hsr_user; 
+      GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${DB_USER};
