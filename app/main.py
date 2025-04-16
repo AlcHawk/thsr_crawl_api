@@ -7,7 +7,7 @@ from datetime import datetime
 import os
 import re
 
-from app.database.database import Base, engine
+from app.database.database import get_db, Base, engine
 from app.database.models import StationData
 from app.crawler.scraper import HSRAnalyzer
 from app.logger import setup_logger
