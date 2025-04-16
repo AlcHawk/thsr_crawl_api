@@ -59,6 +59,7 @@ python -m app.main
 ## 日誌
 
 日誌文件保存在 `logs` 目錄下，文件名格式為 `hsr_crawler_YYYYMMDD_HHMMSS.log`。
+若是在 Render 上，則會是透過 Render Log 去呈現。
 
 ## 輸出文件
 
