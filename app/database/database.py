@@ -29,6 +29,10 @@ else:
     SQLALCHEMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     logger.info(f"使用本地資料庫 URL: {SQLALCHEMY_DATABASE_URL}")
 
+logger.info(f"環境變數 DATABASE_URL: {os.getenv('DATABASE_URL')}")
+logger.info(f"環境變數 DB_HOST: {os.getenv('DB_HOST')}")
+logger.info(f"環境變數 DB_USER: {os.getenv('DB_USER')}")
+
 # 創建數據庫引擎
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
