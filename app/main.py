@@ -6,6 +6,9 @@ import logging
 from datetime import datetime
 import os
 import re
+import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
+from app.routers import api
 
 from app.database.database import get_db, Base, engine
 from app.database.models import StationData
@@ -20,6 +23,15 @@ app = FastAPI(
     title="HSR Crawler API",
     description="用於爬取高鐵網站數據的API服務",
     version="1.0.0"
+)
+
+# 配置 CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class CrawlRequest(BaseModel):
@@ -115,4 +127,7 @@ def main():
         logger.error(f"程式執行時發生錯誤: {e}")
 
 if __name__ == "__main__":
-    main() 
+    logger.info("啟動 FastAPI 服務...")
+    # 從環境變數獲取端口，默認為 8000
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port) 
