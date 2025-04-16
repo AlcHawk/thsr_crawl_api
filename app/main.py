@@ -6,9 +6,7 @@ import logging
 from datetime import datetime
 import os
 import re
-import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import api
 
 from app.database.database import get_db, Base, engine
 from app.database.models import StationData
