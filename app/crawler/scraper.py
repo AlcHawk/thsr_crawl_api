@@ -32,7 +32,7 @@ class HSRAnalyzer:
         self.db_params = {
             'dbname': os.getenv('DB_NAME', 'hsr_data'),
             'user': os.getenv('DB_USER', 'hsr_user'),
-            'password': os.getenv('DB_PASSWORD', '33taoTHSR'),
+            'password': os.getenv('DB_PASSWORD', 'password'),
             'host': os.getenv('DB_HOST', 'localhost'),
             'port': os.getenv('DB_PORT', '5432')
         }

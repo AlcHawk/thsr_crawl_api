@@ -1,8 +1,8 @@
-# 高鐵爬蟲服務
+# THSR Crawler
 
 這是一個用於爬取高鐵網站數據的 API 服務，可以獲取各站點的進出站旅客人數數據。
 
-## 功能特點
+## Function
 
 - 自動爬取高鐵網站數據
 - 支持進站和出站數據的獲取
@@ -10,29 +10,29 @@
 - 提供 RESTful API 接口
 - 自動生成 Excel 報表
 
-## 技術棧
+## Require
 
 - Python 3.8+
 - FastAPI
 - PostgreSQL
 - SQLAlchemy
-- BeautifulSoup4
+- PyQuery
 - Pandas
 
-## 安裝與運行
+## Installation and Execution
 
-1. 克隆倉庫：
+1. Clone Repository：
 ```bash
 git clone https://github.com/您的用戶名/倉庫名.git
 cd 倉庫名
 ```
 
-2. 安裝依賴：
+2. Install Dependency：
 ```bash
 pip install -r requirements.txt
 ```
 
-3. 配置環境變數：
+3. Set Enviromental Variables：
 ```bash
 DB_NAME=hsr_data
 DB_USER=hsr_user
@@ -41,7 +41,7 @@ DB_HOST=localhost
 DB_PORT=5432
 ```
 
-4. 運行服務：
+4. Run Service：
 ```bash
 python -m app.main
 ```
